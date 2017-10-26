@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+<constant name="struts.devMode" value="true" />
+<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+   
+   <package name="redpepper" extends="struts-default" namespace="/">
+ 
+         <result-types>
+			<result-type name="imageResult"
+				class="redpepperp.model.CustomImageBytesResult" />
+		</result-types>
+ 
+		<action name="Display" class="redpepperp.DisplayAction">
+			<result name="success">viewmap.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>
+		<action name="pass" class="redpepperp.DisplayAction">
+			<result name="success">changepassword.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>
+ 
+		<action name="ImageAction" class="redpepperp.FileUploadAction">
+			<result name="success" type="imageResult"></result>
+			<result name="error">index.jsp</result>
+		</action>     
+  		<action name="login" method="authenticate"
+			class="redpepperp.LoginAction">
+			<result name="success">/welcome.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>
+		 <action name="admin" method="authenticate"
+			class="redpepperp.AdminAction">
+			<result name="success">/admin.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>  
+		 <action name="dncmasterlist" method="authenticate"
+			class="redpepperp.DNCmasterlistAction">
+			<result name="success">/DNCmasterlist.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action> 
+        <action name="logout" method="logout"
+			class="redpepperp.LoginAction">
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="userImage"
+	class="redpepperp.MapUpdateAction">
+	<interceptor-ref name="fileUpload">
+		<param name="maximumSize">2097152</param>
+
+		<param name="allowedTypes">
+			image/png,image/gif,image/jpeg,image/pjpeg
+		</param>
+	</interceptor-ref>
+	<interceptor-ref name="defaultStack"></interceptor-ref>
+	<result name="success">SuccessUserImage.jsp</result>
+
+	<result name="input">UserImage.jsp</result>
+    </action>
+ 				
+      </package>
+      
+  <package name="redpepper.model" extends="struts-default" namespace="/"> 
+   
+    <action name="getterritory" class="redpepperp.GetTerrisAction" method="execute">
+      <result name="success">/getterritory.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>
+        <action name="uncirculate" class="redpepperp.UncirculateAction" method="execute">
+      <result name="success">/uncirculate.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>  
+    <action name="territory-list" class="redpepperp.TerrisListAction" method="execute">
+      <result name="success">/terrislist.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>
+    <action name="delete-territory" class="redpepperp.TerrisListAction" method="execute">
+      <result name="success">/deleteterritory.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>
+    <action name="delete-territory-success" class="redpepperp.DeleteTerrisSuccessAction" method="execute">
+      <result name="success">/deleteterrissuccess.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>  
+    <action name="update-dnc-list" class="redpepperp.UpdateDncListAction" method="execute">
+      <result name="success">/updatednclist.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>    
+    <action name="circulate-territory" class="redpepperp.CirculateTerrisAction" method="execute">
+      <result name="success">/circulateterritory.jsp</result> 
+      <result name="error">/index.jsp</result>     
+    </action>     
+    <action name="returnterritory" class="redpepperp.ReturnTerrisAction" method="execute">
+      <result name="success">/returnterritory.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+    <action name="assignterrisba" class="redpepperp.AssignTerrisAction" method="execute">
+      <result name="success">/assignterritory.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+    <action name="circulate-success" class="redpepperp.CirculateSuccessAction" method="execute">
+      <result name="success">/circulatesuccess.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+    <action name="uncirculate-success" class="redpepperp.UncirculateSuccessAction" method="execute">
+      <result name="success">/uncirculatesuccess.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+        <action name="returnterrisx" class="redpepperp.TerrisbackAction" method="execute">
+      <result name="success">/terrisback.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action> 
+     <action name="adduser" class="redpepperp.AddPublisherAction" method="execute">
+      <result name="success">/addpublisher.jsp</result>
+      <result name="error">/index.jsp</result>
+      <result name="alreadyexist">/adduser.jsp</result>
+    </action>
+         <action name="remove-user" class="redpepperp.RemoveUserAction" method="execute">
+      <result name="success">/removeuser.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+     <action name="add-territory" class="redpepperp.AddTerrisAction" method="execute">
+      <result name="success">/addterritory.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+     <action name="add-terris-success" class="redpepperp.AddTerrisSuccessAction" method="execute">
+      <result name="success">/addterrissuccess.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+    <action name="remove-userx" class="redpepperp.RemoveSuccessAction" method="execute">
+      <result name="success">/removeusersuccess.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+
+    <action name="user-list" class="redpepperp.RemoveUserAction" method="execute">
+      <result name="success">/userlist.jsp</result>
+      <result name="error">/index.jsp</result>
+    </action>
+    
+     <action name="pass-success" class="redpepperp.ChangePassSuccessAction" method="execute">
+      <result name="success">/passsuccess.jsp</result>
+      <result name="error">/index.jsp</result>
+      <result name="passmismatch">/changepassword.jsp</result>
+    </action>
+    
+    
+            
+  </package> 
+   
+</struts>
